@@ -1,17 +1,17 @@
 (load 'utils)
 
 ;; sigmoid function
-(defun nonlin (xx &optional deriv)
-    (setq __nonl '())
-    (if (eq deriv t)
-        (loop
-            for x in xx do((lambda () (setq __nonl (addto __nonl (* x (- 1 x))))))
+(defun nonlin (xx &optional deriv l)
+     (if (eq (cdr xx) nil)
+        (if (eq deriv t)
+            (addto l (* (car xx) (- 1 (car xx))))
+            (addto l (/ 1 (+ 1 (exp(- (car xx))))))
         )
-        (loop
-            for x in xx do((lambda () (setq __nonl (reverse (cons (/ 1 (+ 1 (exp(- x)))) (reverse __nonl))))))
+        (if (eq deriv t)
+            (nonlin (cdr xx) t (addto l (* (car xx) (- 1 (car xx)))))
+            (nonlin (cdr xx) nil (addto l (/ 1 (+ 1 (exp(- (car xx)))))))
         )
     )
-    __nonl
 )
 
 ;; input dataset
