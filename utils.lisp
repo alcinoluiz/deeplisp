@@ -17,14 +17,11 @@
 (defun random-list (range val)
   (mapcar #'rand (make-list range :initial-element val)))
 
-(defun dotl (aa bb)
-    (setq __dotl '())
-    (loop for a in aa do (
-          (lambda ()
-           (setq __dotl (addto __dotl (dot a bb)))
-        ) 
-    ))    
-    __dotl
+(defun dotl (aa bb &optional l)
+    (if (eq (cdr aa) nil)
+        (addto l (dot (car aa) bb))
+        (dotl (cdr aa) bb (addto l (dot (car aa) bb) ))
+    )
 )
 
 
