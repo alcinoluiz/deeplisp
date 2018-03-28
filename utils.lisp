@@ -24,15 +24,14 @@
     )
 )
 
+(defun dot (l1 l2) (apply '+  (mapcar #'* l1 l2) ))
 
-(defun dot (aa bb) (loop for a in aa for b in bb sum (* a b) ) )
+(defun listmult (l1 l2) (mapcar #'* l1 l2) )
 
-(defun listmult (list1 list2 &optional result)
-    (if (eq (cdr list1) nil)
-        (reverse (cons (* (car list1) (car list2)) result))
-        (listmult (cdr list1) (cdr list2) (cons (* (car list1) (car list2)) result))
-    )
-)
-
+(defun mapcar* (f &rest xs)
+  "MAPCAR for multiple sequences"
+  (if (not (eq nil xs))
+    (cons (apply f (mapcar 'car xs))
+      (apply 'mapcar* f (mapcar 'cdr xs)))))
 
 (defun addto (al val) (reverse (cons val (reverse al))))
