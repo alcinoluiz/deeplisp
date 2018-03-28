@@ -20,7 +20,7 @@
     (mapcar #'+ l1 l2)
 )
 
-(defun loss (y loss)
+(defun loss (y loss &optional l)
     (if (eq (cdr y) nil)
         (addto l (- (caar y) (car loss)))
         (loss (cdr y) (cdr loss) (addto l (- (caar y) (car loss))))
@@ -43,6 +43,6 @@
 )
 ;; (print la1)
 
-(defun predict (input) (nonlin (dotl input syn0)))
+(defun predict (input) (sigmoid (dotl input syn0)))
 
 ;; (print (predict '((1 1 1))))
